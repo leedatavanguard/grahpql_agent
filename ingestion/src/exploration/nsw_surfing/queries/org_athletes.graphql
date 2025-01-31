@@ -1,0 +1,21 @@
+query SurfingNSWAthletes {
+    organisationAthletes(id: "78", page: 1, per: 10) {
+        totalCount
+        athletes {
+            id
+            dob
+            name
+            properties
+            memberships {
+                createdAt
+                expired
+                expiryDate
+                properties
+                series {
+                    id
+                    name
+                }
+            }
+        }
+    }
+}

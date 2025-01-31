@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  handler:
+    build:
+      context: ../../..
+      dockerfile: Dockerfile
+    environment:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_DEFAULT_REGION
+      - HANDLER_MODULE=ingestion.handlers.graphql.graphql_handler
+      - HANDLER_CLASS=GraphQLHandler
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ../../../../.platform_config:/app/.platform_config:ro
+      - ../../../src:/app/src:ro
+      - ../../../tests:/app/tests:ro
+    depends_on:
+      - localstack
+      - mock-graphql
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8080/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  mock-graphql:
+    image: graphql-mock  # Custom image with test GraphQL server
+    ports:
+      - "4000:4000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=athena,cloudwatch,s3
+      - DEFAULT_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4566/_localstack/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5

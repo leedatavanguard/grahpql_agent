@@ -1,0 +1,29 @@
+{
+    "data": {
+        "clubMembership": {
+            "id": "31_130029",
+            "status": "ACTIVE",
+            "expiryDate": "2025-12-31",
+            "athlete": {
+                "id": "130029",
+                "firstName": "John",
+                "lastName": "Doe",
+                "properties": {
+                    "age": 25,
+                    "address": {
+                        "city": "Sydney",
+                        "state": "NSW"
+                    }
+                }
+            },
+            "club": {
+                "id": "31",
+                "name": "Bondi Surf Club",
+                "location": {
+                    "latitude": -33.8915,
+                    "longitude": 151.2767
+                }
+            }
+        }
+    }
+}

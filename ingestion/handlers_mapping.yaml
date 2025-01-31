@@ -1,0 +1,38 @@
+handlers:
+  liveheats:
+    handler: ingestion.handlers.liveheats.handler.LiveHeatsHandler
+    description: Ingests live heats data from the API
+    required_secrets:
+      - API_KEY
+    config_schema:
+      poll_interval:
+        type: integer
+        description: Polling interval in seconds
+        default: 60
+      batch_size:
+        type: integer
+        description: Number of items to process in each batch
+        default: 100
+      error_backoff:
+        type: integer
+        description: Backoff time in seconds after an error
+        default: 300
+
+  graphql:
+    handler: ingestion.handlers.graphql.handler.GraphQLHandler
+    description: Ingests data from GraphQL endpoints
+    required_secrets:
+      - CLIENT_ID
+      - CLIENT_SECRET
+    config_schema:
+      endpoint:
+        type: string
+        description: GraphQL endpoint URL
+      poll_interval:
+        type: integer
+        description: Polling interval in seconds
+        default: 60
+      batch_size:
+        type: integer
+        description: Number of items to process in each batch
+        default: 100

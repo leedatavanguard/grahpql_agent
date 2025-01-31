@@ -1,0 +1,15 @@
+query ClubMembership {
+    series(id: "1939") {
+        name
+        paginatedMemberships(page: 1, perPage: 10) {
+            totalCount
+            memberships {
+                createdAt
+                athlete {
+                    id
+                    name
+                }
+            }
+        }
+    }
+}

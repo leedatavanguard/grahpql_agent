@@ -1,0 +1,13 @@
+query accounts {
+  accounts {
+    id
+    name
+    federation
+    athletes { # Nested to access athletes per account
+      id
+      name
+      dob
+      properties
+    }
+  }
+}

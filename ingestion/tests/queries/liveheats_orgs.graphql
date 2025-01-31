@@ -1,0 +1,24 @@
+query getOrganisationAthletes($id: ID!, $page: Int!, $per: Int!) {
+    organisationAthletes(id: $id, page: $page, per: $per) {
+        athletes {
+            id
+            name
+            dob
+            properties
+            users {
+                phone
+            }
+            memberships {
+                id
+                expired 
+                createdAt
+                expiryDate 
+                organisation {
+                    id
+                    name
+                }
+            }
+        }
+        totalCount
+    }
+}

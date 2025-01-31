@@ -1,0 +1,26 @@
+{
+    "ingestion_handlers": {
+        "liveheats_orgs": {
+            "enabled": true,
+            "name": "liveheats-orgs-handler",
+            "type": "graphql",
+            "handler_module": "ingestion.handlers.graphql.graphql_handler",
+            "cpu": 256,
+            "memory_limit_mib": 512,
+            "environment": {
+                "GRAPHQL_ENDPOINT": "https://api.liveheats.com/graphql",
+                "QUERY_FILE": "queries/liveheats_orgs.graphql",
+                "OUTPUT_PATH": "/tmp/test_data/liveheats"
+            },
+            "schedule": "rate(1 day)"
+        }
+    },
+    "DataIngestionTasks": {
+        "LiveHeatsOrganisations": {
+            "enabled": true,
+            "handler": "liveheats-orgs-handler",
+            "schedule": "rate(1 day)",
+            "description": "Fetch organizations data from LiveHeats GraphQL API"
+        }
+    }
+}

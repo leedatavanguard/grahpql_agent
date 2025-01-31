@@ -1,0 +1,8 @@
+query athletesByFederation(federation: "FEDERATION_NAME") {
+  athletes(id: "FEDERATION_NAME") {
+    id
+    name
+    dob
+    properties
+  }
+}
